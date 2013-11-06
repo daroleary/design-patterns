@@ -11,11 +11,11 @@ public class DebitVistor extends Visitor {
     }
 
     @Override
-    public void visit(Element element) {
-        Customer customer = (Customer) element;
+    public void visit(ICustomer iCustomer) {
+        Customer customer = (Customer) iCustomer;
         customer.debit(_amount);
 
-        System.out.println(MessageFormat.format("DebitVistor debited {0} ${1}. Balance:{2}",
+        System.out.println(MessageFormat.format("DebitVistor debited {0} ${1}. Balance: ${2}",
                 customer.getName(),
                 _amount,
                 customer.getBalance()));

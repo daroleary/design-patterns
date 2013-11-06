@@ -1,6 +1,6 @@
 package com.pattern.visitor.solution1;
 
-public class Customer extends Element {
+public class Customer extends ICustomer {
 
     private String _name;
     private double _balance;
