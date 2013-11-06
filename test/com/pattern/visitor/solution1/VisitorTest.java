@@ -13,38 +13,45 @@ public class VisitorTest {
     public void testVisit() throws Exception {
         Customers customers = new Customers();
 
-        String george = "George";
-        String janice = "Janice";
-        String richard = "Richard";
+        Customer georgeCustomer = new Customer("George", 233.50);
+        Customer janiceCustomer = new Customer("Janice", 102.25);
+        Customer richardCustomer = new Customer("Richard", 2005.48);
 
-        customers.attachElement(new Customer(george, 233.50));
-        customers.attachElement(new Customer(janice, 102.25));
-        customers.attachElement(new Customer(richard, 2005.48));
+        customers.attachElement(georgeCustomer);
+        customers.attachElement(janiceCustomer);
+        customers.attachElement(richardCustomer);
+
+        assertEquals(3, customers._customers.size());
 
         CreditVistor creditVistor = new CreditVistor(50.15);
         DebitVistor debitVistor = new DebitVistor(22.20);
 
         Map<String, Double> expectedResults = new HashMap<>();
-        expectedResults.put(george, 233.50);
-        expectedResults.put(janice, 102.25);
-        expectedResults.put(richard, 2005.48);
+        expectedResults.put(georgeCustomer.getName(), 233.50);
+        expectedResults.put(janiceCustomer.getName(), 102.25);
+        expectedResults.put(richardCustomer.getName(), 2005.48);
         assertCustomers(customers, expectedResults);
 
         customers.acceptVisitor(creditVistor);
 
         expectedResults = new HashMap<>();
-        expectedResults.put(george, 283.65);
-        expectedResults.put(janice, 152.40);
-        expectedResults.put(richard, 2055.63);
+        expectedResults.put(georgeCustomer.getName(), 283.65);
+        expectedResults.put(janiceCustomer.getName(), 152.40);
+        expectedResults.put(richardCustomer.getName(), 2055.63);
         assertCustomers(customers, expectedResults);
 
         customers.acceptVisitor(debitVistor);
 
         expectedResults = new HashMap<>();
-        expectedResults.put(george, 261.45);
-        expectedResults.put(janice, 130.20);
-        expectedResults.put(richard, 2033.43);
+        expectedResults.put(georgeCustomer.getName(), 261.45);
+        expectedResults.put(janiceCustomer.getName(), 130.20);
+        expectedResults.put(richardCustomer.getName(), 2033.43);
         assertCustomers(customers, expectedResults);
+
+        customers.dettachElement(georgeCustomer);
+        customers.dettachElement(janiceCustomer);
+        customers.dettachElement(richardCustomer);
+        assertEquals(0, customers._customers.size());
     }
 
     private void assertCustomers(Customers customers, Map<String, Double> expectedResults) {
