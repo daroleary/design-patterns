@@ -1,5 +1,6 @@
 package com.pattern.visitor.solution1;
 
+import java.text.MessageFormat;
 import java.util.*;
 
 public class Customers {
@@ -19,8 +20,13 @@ public class Customers {
     }
 
     public void acceptVisitor(Visitor visitor) {
+        System.out.println(MessageFormat.format("Accepting {0}",
+                visitor.getClass().getName()));
+
         for (Customer customer : _customers.values()) {
             customer.accept(visitor);
         }
+
+        System.out.println();
     }
 }
