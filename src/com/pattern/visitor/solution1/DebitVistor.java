@@ -2,7 +2,7 @@ package com.pattern.visitor.solution1;
 
 import java.text.MessageFormat;
 
-public class DebitVistor extends Visitor {
+public class DebitVistor implements Visitor {
 
     private double _amount;
 
